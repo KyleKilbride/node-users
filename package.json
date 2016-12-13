@@ -1,0 +1,12 @@
+{
+    "name": "user_api",
+    "description": "light user api to test react app",
+    "author": "Kyle Kilbride <kyle@perple.io>",
+    "version": "1.0.0",
+    "main": "server.js",
+    "dependencies": {
+        "express": "~4.0.0",
+        "mongoose": "~4.2.4",
+        "body-parser": "~1.0.1"
+    }
+}
