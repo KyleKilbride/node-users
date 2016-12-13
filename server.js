@@ -40,7 +40,6 @@ app.use('/api', router);
 // as statistical data analytics. 
 // As well as authentication
 router.use(function(req, res, next){
-    console.log(`API has processed data:: name: ${req.body.name} email: ${req.body.email}`);
     //go to the next routes
     next(); 
 });
