@@ -27,6 +27,7 @@ db.once('open', function(){
 });
 
 var User = require('./app/models/user');
+var Report = require('./app/models/report');
 
 // Routes for the API
 //===========================================================================
@@ -57,7 +58,6 @@ router.route('/users')
         user.email = req.body.email;
         user.save(function(err){
             if(err){
-                console.log('Error: Could not save data');
                 res.send(err);
             }
             res.json({message: 'User created!'});
@@ -98,6 +98,28 @@ router.route('/users/:user_id')
 
         });
     });
+
+    // Route to get a list of reports
+    router.route('/reports')
+        .get(function(req, res) {
+            Report.find(function(err, reports) {
+                if(err)
+                    res.send(err);
+                
+                res.json(reports)
+            });
+        })
+        .post(function(req, res) {
+            var report = new Report();
+            report.name = req.body.name;
+            report.path = req.body.path;
+            report.save(function(err) {
+                if(err)
+                    res.send(err);
+
+                res.json({message: 'Report Saved'});
+            });
+        });
     
 
 //============================================================================
