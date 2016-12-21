@@ -64,7 +64,6 @@ router.route('/users')
         });
     })
     .get(function(req, res){
-        
         User.find(function(err, users){
             if(err)
                 res.send(err);
@@ -75,9 +74,11 @@ router.route('/users')
 
 router.route('/users/:user_id')
     .get(function(req,res){
-        User.find(function(err, user){
+        User.findById(req.params.user_id, function(err, user){
             if(err)
                 res.send(err);
+
+            res.json(user)
         });
     })
     .put(function(req, res){
@@ -92,34 +93,45 @@ router.route('/users/:user_id')
             user.save(function(err){
                 if(err)
                     res.send(err);
+                    
                     res.json({ message: 'User Updated!'});
             });
-            
-
         });
     });
 
-    // Route to get a list of reports
-    router.route('/reports')
-        .get(function(req, res) {
-            Report.find(function(err, reports) {
-                if(err)
-                    res.send(err);
-                
-                res.json(reports)
-            });
-        })
-        .post(function(req, res) {
-            var report = new Report();
-            report.name = req.body.name;
-            report.path = req.body.path;
-            report.save(function(err) {
-                if(err)
-                    res.send(err);
-
-                res.json({message: 'Report Saved'});
-            });
+// Route to get a list of reports
+router.route('/reports')
+    .get(function(req, res) {
+        Report.find(function(err, reports) {
+            if(err)
+                res.send(err);
+            
+            res.json(reports)
         });
+    })
+    .post(function(req, res) {
+        var report = new Report();
+        report.name = req.body.name;
+        report.path = req.body.path;
+        report.save(function(err) {
+            if(err)
+                res.send(err);
+
+            res.json({message: 'Report Saved'});
+        });
+    });
+
+// Need to make a get for /reports/:report_id
+
+router.route('/reports/:report_id')
+    .get(function(req, res) {
+        Report.findById(req.params.report_id, function(err, report){
+            if(err)
+                res.send(err);
+
+            res.json(report);
+        });
+    });
     
 
 //============================================================================
