@@ -131,6 +131,18 @@ router.route('/reports/:report_id')
 
             res.json(report);
         });
+    })
+    .delete(function(req, res) {
+        Report.remove({
+            _id: req.params.report_id
+        }, function(err, report){
+            if(err)
+                res.send(err);
+
+            res.json({
+                message: 'Deleted Report'
+            })
+        });
     });
     
 
